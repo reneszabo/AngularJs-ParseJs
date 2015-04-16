@@ -1,0 +1,57 @@
+body{
+  background: #edeeef;
+}
+#ads-section{
+
+  .panel{
+    background: #fafafa;
+    border: 1px solid silver;
+    border-radius: 3px;
+    box-shadow: 0 1px 16px rgba(0,0,0,.1);
+    text-align: left;
+  }
+  header{
+  }
+  .price{
+    color: #64AAA4;
+    margin-top: .5em;
+    padding: .25em 0;
+    background: #292b2e;
+    font-size: 250%;
+  }
+  .main-container{
+    width: 100%;
+  }
+  .video-container{
+    width: 100%;
+    video{
+      width: 100%;
+    }
+  }
+  .decoration{
+    background: #64AAA4;
+    color:white;
+    padding: .2em .1em;
+    height: 25px;
+  }
+  .btn-primary{
+    background: white;
+    border-color: lighten(#64AAA4, 20%);
+    color:#64AAA4;
+    &:hover{
+      background: #64AAA4;
+      color:white;
+
+    }
+    &.active{
+      background: darken(#64AAA4, 20%);
+      color:white;
+    }
+  }
+  .label-primary{
+    background: #64AAA4;
+  }
+  .text-primary{
+    color: darken(#64AAA4, 20%);
+  }
+}

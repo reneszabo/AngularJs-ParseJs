@@ -1,0 +1,42 @@
+body {
+  background: #edeeef; }
+
+#ads-section .panel {
+  background: #fafafa;
+  border: 1px solid silver;
+  border-radius: 3px;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.1);
+  text-align: left; }
+#ads-section .price {
+  color: #64AAA4;
+  margin-top: .5em;
+  padding: .25em 0;
+  background: #292b2e;
+  font-size: 250%; }
+#ads-section .main-container {
+  width: 100%; }
+#ads-section .video-container {
+  width: 100%; }
+  #ads-section .video-container video {
+    width: 100%; }
+#ads-section .decoration {
+  background: #64AAA4;
+  color: white;
+  padding: .2em .1em;
+  height: 25px; }
+#ads-section .btn-primary {
+  background: white;
+  border-color: #a6cecb;
+  color: #64AAA4; }
+  #ads-section .btn-primary:hover {
+    background: #64AAA4;
+    color: white; }
+  #ads-section .btn-primary.active {
+    background: #3c6d68;
+    color: white; }
+#ads-section .label-primary {
+  background: #64AAA4; }
+#ads-section .text-primary {
+  color: #3c6d68; }
+
+/*# sourceMappingURL=m.css.map */
