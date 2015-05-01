@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 login" >
+  <div class="col-sm-6 col-md-4 col-md-offset-4 login" >
     <h1 class="text-center login-title" ng-bind-html="welcomeMessage"></h1>
     <div class="account-wall">
       <img class="profile-img" src="images/{{welcomeImg}}" alt="">
@@ -7,7 +7,7 @@
         name="form" 
         class="form-signin css-form" 
         shake-that
-        submitted="submitted" 
+        submitted="submitted"
         novalidate
         ng-submit="login(form.$valid)" 
         >
@@ -23,8 +23,8 @@
             autofocus 
             ng-model="user.username" 
             ng-model-options="{
-                  updateOn: 'blur'
-                }"
+                      updateOn: 'blur'
+                    }"
             required 
             >
           <input 
@@ -35,13 +35,10 @@
             placeholder="Password" 
             ng-model="user.password" 
             ng-model-options="{
-                  updateOn: 'blur'
-                }"
+                      updateOn: 'blur'
+                    }"
             required 
             >
-        </div>
-        <div class="text-center" ng-show="hasError()">
-          {{ errorMsg }}
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" >
           {{welcomeButton}}

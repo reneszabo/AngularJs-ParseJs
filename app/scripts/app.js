@@ -26,12 +26,23 @@ angular.module('parse.model', [])
           obj.prototype.__defineSetter__("password", function (v) {
             return this.set("password", v);
           });
+          /*--- INCOME -------------------------------------------------------------*/
+          obj.prototype.__defineGetter__("income", function () {
+            var i = this.get("income");
+            console.log(i === undefined);
+            if (i === undefined) {
+              i = 0;
+            }
+            return i;
+          });
+          obj.prototype.__defineSetter__("income", function (v) {
+            return this.set("income", v);
+          });
           return obj;
         })
         .factory('Ad', ['$q', 'UserHasAd', function ($q, UserHasAd) {
             var obj = Parse.Object.extend("Ad", {
               checkUser: function () {
-                console.log("checkUser", this.id);
                 if (this.user != null && Parse.User.current() != null) {
                   this.hasUser = (this.user.id === Parse.User.current().id);
                 } else {
@@ -55,7 +66,6 @@ angular.module('parse.model', [])
               },
               fetch: function (options) {
                 var _self = this;
-                console.log("fetch", this.id);
                 var _arguments = arguments;
                 var relation = _self.relation('info');
                 var qRelation = relation.query();
@@ -67,7 +77,7 @@ angular.module('parse.model', [])
                       _self.user = null;
                     } else {
                       _self.user = info.get('user');
-                      this.userHasAd = info;
+                      _self.userHasAd = info;
                     }
                     _self.checkUser();
                     return _self.user;
@@ -86,8 +96,6 @@ angular.module('parse.model', [])
                     // The request failed
                   }
                 });
-
-
                 return (function (_this) {
                   return function () {
                     return _this.constructor.__super__.fetch.apply(_this, _arguments);
@@ -114,7 +122,40 @@ angular.module('parse.model', [])
             return obj;
           }])
         .factory('UserHasAd', function ($q) {
-          var obj = Parse.Object.extend("UserHasAd");
+          var obj = Parse.Object.extend("UserHasAd", {
+            getQualityText: function () {
+              if (this.quality == 1) {
+                return "VERY BAD";
+              } else if (this.quality == 2) {
+                return "BAD";
+
+              } else if (this.quality == 3) {
+                return "SO-SO";
+
+              } else if (this.quality == 4) {
+                return "GOOD";
+
+              } else if (this.quality == 5) {
+                return "EXCELENT";
+
+              }
+              return "None";
+            },
+            getQualityLabel: function () {
+              if (this.quality == 1) {
+                return "label-danger";
+              } else if (this.quality == 2) {
+                return "label-danger";
+              } else if (this.quality == 3) {
+                return "label-danger";
+              } else if (this.quality == 4) {
+                return "label-danger";
+              } else if (this.quality == 5) {
+                return "label-danger";
+              }
+              return "None";
+            }
+          }, {});
           /*--- User -----------------------------------------------------------------*/
           obj.prototype.__defineGetter__("user", function () {
             return this.get("user");
@@ -143,11 +184,16 @@ angular.module('parse.model', [])
           obj.prototype.__defineSetter__("ad", function (v) {
             return this.set("ad", v);
           });
+
           return obj;
         });
 angular.module('parse.service', [])
         .service('AdService', ['$q', 'Ad', 'UserHasAd', function ($q, Ad, UserHasAd) {
+
+            console.log("AdService");
+
             var ads = [];
+
             this.get = function (id) {
               var defer = $q.defer();
               var query = new Parse.Query(Ad);
@@ -218,6 +264,10 @@ var app = angular
           })
           .when('/connect/:formType', {
             templateUrl: 'views/login.html',
+            controller: 'LoginController'
+          })
+          .when('/connect/logout', {
+            templateUrl: 'views/logout.html',
             controller: 'LoginController'
           })
           .otherwise({

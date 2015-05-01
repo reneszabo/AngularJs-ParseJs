@@ -10,6 +10,14 @@
 app.controller('LoginController', ['$scope', '$animate', '$location', '$rootScope', '$routeParams', '$route', 'User', function ($scope, $animate, $location, $rootScope, $routeParams, $route, User) {
     $scope.submitted = false;
     $scope.formType = 'login';
+    $scope.errorMsg = "";
+    function hasError() {
+      if ($scope.errorMsg.length > 0) {
+        return true;
+      }
+      return false;
+    }
+
     if ($routeParams.formType !== undefined) {
       $scope.formType = $routeParams.formType;
     }
@@ -42,7 +50,9 @@ app.controller('LoginController', ['$scope', '$animate', '$location', '$rootScop
       });
     }
 
-    function loginUnsuccessful(user, error) {
+    function loginUnsuccessful(error) {
+      console.log(error);
+      console.log(error);
       removeShake();
       $scope.$apply($animate.addClass('.account-wall', 'shake-a'));
     }
@@ -74,9 +84,9 @@ app.controller('LoginController', ['$scope', '$animate', '$location', '$rootScop
     };
 
     $scope.logout = function () {
+      $scope.$emit('logout-user');
       $rootScope.currentUser = null;
       Parse.User.logOut();
-      $route.reload();
     };
 
 
@@ -119,7 +129,6 @@ function removeShake() {
     clearTimeout(timeOut);
   }
   timeOut = setTimeout(function () {
-    console.log('asd2');
     $('.shake-a').removeClass('shake-a');
   }, 1000);
 }

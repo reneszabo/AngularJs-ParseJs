@@ -1,8 +1,6 @@
-
-
 <section id="ads-section" class="row" ng-controller="AdsController">
   <div class="col-md-6 col-md-offset-3"  ng-repeat="ad in ads" ng-init="initAdRender(ad, this)">
-    <article class="panel">
+    <article id="{{ad.id}}" class="panel">
       <div class="decoration">{{ad.count}} / {{ad.limitClicks}}</div>
       <div class="panel-body">
         <header class="header-container text-center">
@@ -22,7 +20,9 @@
           <form ng-submit="submitSurvey(ad)" class="survvay-form css-form" ng-hide="ad.hasUser">
             <div class="form-group">
               <div class="btn-group btn-group-justified" data-toggle="buttons" >
-                <label class="btn btn-primary" ng-click="ad.userHasAd.quality = 1" ng-class="{active:ad.userHasAd.quality==1}">
+                <label class="btn btn-primary" ng-click="ad.userHasAd.quality = 1" ng-class="{
+                      active:ad.userHasAd.quality == 1
+                    }">
                   <input type="radio" name="options" autocomplete="off" ng-model="ad.userHasAd.quality" value="1" ng-value="1" required> VERY BAD
                 </label>
                 <label class="btn btn-primary" ng-click="ad.userHasAd.quality = 2">
@@ -49,8 +49,17 @@
               <button type="submit" name="button" class="btn btn-info">Submit</button>
             </div>
           </form>
-          <div class="text-right" ng-show="ad.hasUser">
+          <div class="text-center" ng-show="ad.hasUser">
             <span class="label label-primary">Thank U <span class="glyphicon glyphicon-heart text-primary"></span> your opinion is importante 2 us</span>
+
+            <hr>
+            <div class="text-left">
+              <strong>Your opinion</strong>
+              <div>
+                {{ ad.userHasAd.comment}}
+              </div>
+              <span class="label {{ ad.userHasAd.getQualityLabel()}}">{{ ad.userHasAd.getQualityText()}}</span>
+            </div>
           </div>
         </div>
       </div>

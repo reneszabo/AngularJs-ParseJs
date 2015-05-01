@@ -8,14 +8,35 @@
  * Controller of the publicHtmlApp
  */
 app.controller('AdsController', ['$scope', '$location', '$rootScope', 'AdService', 'UserHasAd', function ($scope, $location, $rootScope, AdService, UserHasAd) {
-    $scope.ads = [];
-
-    AdService.list().then(function (ads) {
-      $scope.ads = ads;
-    }, function (aError) {
-      // Something went wrong, handle the error
-      return null;
+    console.log("AdsController");
+    var fetchingLock = false;
+    $rootScope.$on('logout-user', function (event, args) {
+      console.log("Some Event");
+      getAdsFromParse(true);
     });
+    $scope.ads = [];
+    getAdsFromParse(true);
+
+    function getAdsFromParse(clean) {
+      if (clean === undefined) {
+        clean = false;
+      }
+      if (fetchingLock === false) {
+        console.log("Some Event ---------------------------", fetchingLock);
+        fetchingLock = true;
+        if (clean === true) {
+          $scope.ads = [];
+        }
+        AdService.list().then(function (ads) {
+          $scope.ads = ads;
+        }, function (aError) {
+          return null;
+        }).then(function () {
+          fetchingLock = false;
+        });
+      }
+    }
+
     $scope.initAdRender = function (ad, render) {
       ad.render = render;
     };
@@ -57,8 +78,13 @@ app.controller('AdsController', ['$scope', '$location', '$rootScope', 'AdService
       r.add(userHasAd);
       ad.save().then(function () {
         ad.fetch();
+        $rootScope.currentUser.income = $rootScope.currentUser.income * 1 + ad.price * 1;
+        $rootScope.currentUser.save();
+
       });
       ;
     }
+
+
 
   }]);

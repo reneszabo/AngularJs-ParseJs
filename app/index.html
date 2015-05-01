@@ -25,8 +25,8 @@
 <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="header" style="height:60px;">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
@@ -43,6 +43,7 @@
             </ul>
             <ul ng-controller="LoginController" class="nav navbar-nav navbar-right" >
               <li ng-show="loggedIn()"> <a href="#">{{ currentUser.get("username")}}</a> </li>
+              <li ng-show="loggedIn()"> <a href="#income">(${{ currentUser.income }})</a> </li>
               <li ng-show="loggedIn()"><button type="button" class="btn btn-default navbar-btn" ng-click="logout()">Logout</button></li>
               <li ng-hide="loggedIn()"><a href="#/connect/login">Login</a></li>
               <li ng-hide="loggedIn()"><p class="navbar-text">or</p></li>
@@ -92,7 +93,7 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="//www.parsecdn.com/js/parse-1.4.0.min.js"></script>
+    <script src="scripts/parse-1.4.0.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/login.js"></script>
